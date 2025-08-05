@@ -6,11 +6,12 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   helperText?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  centered?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, error, helperText, leftIcon, rightIcon, className = "", ...props },
+    { label, error, helperText, leftIcon, rightIcon, centered = false, className = "", ...props },
     ref
   ) => {
     const baseInputClasses = `
@@ -29,8 +30,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ${rightIcon ? "pr-10" : ""}
   `;
 
+    const containerClasses = centered 
+      ? "w-full max-w-xs mx-auto" 
+      : "w-full";
+
     return (
-      <div className="w-full">
+      <div className={containerClasses}>
         {label && (
           <label className="block text-sm font-medium text-gray-700 mb-1">
             {label}

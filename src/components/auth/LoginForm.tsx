@@ -42,13 +42,13 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4 py-12">
+      <div className="bg-white rounded-xl shadow-xl p-8 w-full max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="text-4xl mb-2">💰</div>
-          <h1 className="text-2xl font-bold text-blue-600">BudgetFlow</h1>
-          <p className="text-gray-600">Sign in to your account</p>
+          <div className="text-4xl mb-4">💰</div>
+          <h1 className="text-2xl font-bold text-blue-600 mb-2">BudgetFlow</h1>
+          <p className="text-gray-600 text-sm">Sign in to your account</p>
         </div>
 
         {/* Error Message */}

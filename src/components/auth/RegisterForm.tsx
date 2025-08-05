@@ -124,6 +124,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
             required
             disabled={isLoading}
             helperText={`Minimum ${VALIDATION.USERNAME.MIN_LENGTH} characters`}
+            centered
           />
 
           <Input
@@ -134,6 +135,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
             placeholder="Enter your email"
             required
             disabled={isLoading}
+            centered
           />
 
           <Input
@@ -145,6 +147,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
             required
             disabled={isLoading}
             helperText={`Minimum ${VALIDATION.PASSWORD.MIN_LENGTH} characters`}
+            centered
           />
 
           <Input
@@ -155,6 +158,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
             placeholder="Confirm your password"
             required
             disabled={isLoading}
+            centered
           />
 
           {/* Security Question Section */}
@@ -171,6 +175,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
               placeholder="e.g., What was your first pet's name?"
               disabled={isLoading}
               helperText="This will help you reset your password if needed"
+              centered
             />
 
             {formData.securityQuestion && (
@@ -181,6 +186,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
                 onChange={handleInputChange("securityAnswer")}
                 placeholder="Enter your answer"
                 disabled={isLoading}
+                centered
               />
             )}
           </div>
