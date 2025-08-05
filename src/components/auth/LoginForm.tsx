@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import type { LoginRequest } from "../../types/auth";
 import RegisterForm from "./RegisterForm";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 const LoginForm: React.FC = () => {
-  const { login } = useAuth();
+  const { login } = useAuthContext();
   const [credentials, setCredentials] = useState<LoginRequest>({
     username: "",
     password: "",

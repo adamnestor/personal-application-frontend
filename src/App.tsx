@@ -12,7 +12,7 @@ import CalendarItem from "./components/budget/CalendarItem";
 
 // Context
 import { AuthProvider } from "./context/AuthContext";
-import { useAuth } from "./hooks/useAuthContext";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 // Hooks
 import { useTemplates } from "./hooks/useTemplates";
@@ -36,7 +36,7 @@ const queryClient = new QueryClient({
 
 // Main Budget App Component
 const BudgetApp: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuthContext();
   const { year: currentYear, month: currentMonth } = getCurrentYearMonth();
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
@@ -173,7 +173,7 @@ const BudgetApp: React.FC = () => {
 
 // Auth wrapper component
 const AuthenticatedApp: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuthContext();
 
   if (isLoading) {
     return (

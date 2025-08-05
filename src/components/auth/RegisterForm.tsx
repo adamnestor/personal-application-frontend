@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import type { RegisterRequest } from "../../types/auth";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
@@ -10,7 +10,7 @@ interface RegisterFormProps {
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
-  const { register } = useAuth();
+  const { register } = useAuthContext();
   const [formData, setFormData] = useState<
     RegisterRequest & { confirmPassword: string }
   >({
