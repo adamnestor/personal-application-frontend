@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { ExpenseTemplate } from "../../types/budget";
+import type { ExpenseTemplate, UpdateTemplateData } from "../../types/budget";
 import { formatCurrency } from "../../utils/formatters";
 import Button from "../ui/Button";
 import Modal from "../ui/Modal";
@@ -8,14 +8,14 @@ import Modal from "../ui/Modal";
 interface TemplateItemProps {
   template: ExpenseTemplate;
   hasInstances?: boolean;
-  onUpdate: (templateId: number, data: any) => void;
+  onUpdate?: (templateId: number, data: UpdateTemplateData) => void;
   onDelete: (templateId: number) => void;
 }
 
 const TemplateItem: React.FC<TemplateItemProps> = ({
   template,
   hasInstances = false,
-  onUpdate,
+  onUpdate: _onUpdate,
   onDelete,
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);

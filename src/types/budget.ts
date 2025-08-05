@@ -68,3 +68,50 @@ export interface CreateFromTemplateRequest {
 export interface MoveTransactionRequest {
   newDate: string;
 }
+
+export interface UpdateExpenseRequest {
+  name: string;
+  amount: number;
+  scheduledDate: string;
+}
+
+export interface UpdateIncomeRequest {
+  name: string;
+  amount: number;
+  scheduledDate: string;
+}
+
+// Drag and drop types
+export interface DragData {
+  type: 'template' | 'scheduled';
+  template?: ExpenseTemplate;
+  item?: ScheduledExpense | ScheduledIncome;
+  itemType?: 'expense' | 'income';
+}
+
+export interface DropData {
+  date: string;
+}
+
+// Update operation types
+export interface UpdateExpenseData {
+  name?: string;
+  amount?: number;
+  scheduledDate?: string;
+}
+
+export interface UpdateIncomeData {
+  name?: string;
+  amount?: number;
+  scheduledDate?: string;
+}
+
+export interface UpdateTemplateData {
+  name?: string;
+  amount?: number;
+  recurrenceType?: RecurrenceType;
+  dayOfMonth?: number;
+  dayOfWeek?: number;
+  biWeeklyStartDate?: string;
+  active?: boolean;
+}

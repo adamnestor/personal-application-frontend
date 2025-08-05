@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LoginRequest, RegisterRequest, User } from "../types/auth";
+import type { LoginRequest, RegisterRequest, User } from "../types/auth";
 import { authService } from "../services/authService";
 import { STORAGE_KEYS } from "../utils/constants";
 

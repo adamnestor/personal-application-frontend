@@ -1,10 +1,12 @@
 import { apiClient } from "./api";
-import {
+import type {
   MonthlyBudgetData,
   ScheduledExpense,
   ScheduledIncome,
   CreateFromTemplateRequest,
   MoveTransactionRequest,
+  UpdateExpenseRequest,
+  UpdateIncomeRequest,
 } from "../types/budget";
 
 export const budgetService = {
@@ -84,13 +86,9 @@ export const budgetService = {
    */
   updateExpense: async (
     expenseId: number,
-    data: {
-      name: string;
-      amount: number;
-      scheduledDate: string;
-    }
+    data: Partial<UpdateExpenseRequest>
   ): Promise<ScheduledExpense> => {
-    return apiClient.put<ScheduledExpense>(`/expenses/${expenseId}`, data);
+    return apiClient.patch<ScheduledExpense>(`/expenses/${expenseId}`, data);
   },
 
   /**
@@ -116,13 +114,9 @@ export const budgetService = {
    */
   updateIncome: async (
     incomeId: number,
-    data: {
-      name: string;
-      amount: number;
-      scheduledDate: string;
-    }
+    data: Partial<UpdateIncomeRequest>
   ): Promise<ScheduledIncome> => {
-    return apiClient.put<ScheduledIncome>(`/income/${incomeId}`, data);
+    return apiClient.patch<ScheduledIncome>(`/income/${incomeId}`, data);
   },
 
   /**

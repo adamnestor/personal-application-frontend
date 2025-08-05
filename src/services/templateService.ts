@@ -1,5 +1,5 @@
 import { apiClient } from "./api";
-import { ExpenseTemplate, CreateTemplateRequest } from "../types/budget";
+import type { ExpenseTemplate, CreateTemplateRequest } from "../types/budget";
 
 export interface UpdateTemplateRequest extends CreateTemplateRequest {
   updateFutureOnly?: boolean;
@@ -34,9 +34,9 @@ export const templateService = {
    */
   updateTemplate: async (
     templateId: number,
-    data: UpdateTemplateRequest
+    data: Partial<UpdateTemplateRequest>
   ): Promise<ExpenseTemplate> => {
-    return apiClient.put<ExpenseTemplate>(`/templates/${templateId}`, data);
+    return apiClient.patch<ExpenseTemplate>(`/templates/${templateId}`, data);
   },
 
   /**

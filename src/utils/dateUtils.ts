@@ -1,4 +1,4 @@
-import { DayData } from "../types";
+import type { DayData, ScheduledExpense, ScheduledIncome } from "../types/budget";
 
 /**
  * Get the current year and month
@@ -57,8 +57,8 @@ export const getFirstDayOfWeek = (year: number, month: number): number => {
 export const createMonthGrid = (
   year: number,
   month: number,
-  expenses: any[] = [],
-  income: any[] = [],
+  expenses: ScheduledExpense[] = [],
+  income: ScheduledIncome[] = [],
   dailyBalances: Record<string, number> = {}
 ): DayData[] => {
   const daysInMonth = getDaysInMonth(year, month);

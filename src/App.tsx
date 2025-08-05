@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { DndContext, DragEndEvent, DragOverlay } from "@dnd-kit/core";
-import { createPortal } from "react-dom";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
 
 // Components
 import Header from "./components/layout/Header";
@@ -19,7 +19,8 @@ import { useMonthlyData } from "./hooks/useMonthlyData";
 import { getCurrentYearMonth } from "./utils/dateUtils";
 
 // Types
-import { DragData, DropData } from "./types";
+import type { DragData, DropData } from "./types";
+import type { DragStartEvent } from "@dnd-kit/core";
 
 // Create query client
 const queryClient = new QueryClient({
@@ -39,7 +40,7 @@ const BudgetApp: React.FC = () => {
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
-  const [activeDragItem, setActiveDragItem] = useState<any>(null);
+  const [activeDragItem, setActiveDragItem] = useState<DragData | null>(null);
 
   // Hooks
   const {
@@ -69,9 +70,9 @@ const BudgetApp: React.FC = () => {
   };
 
   // Handle drag and drop
-  const handleDragStart = (event: any) => {
+  const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
-    setActiveDragItem(active.data.current);
+    setActiveDragItem((active.data.current as DragData) || null);
   };
 
   const handleDragEnd = async (event: DragEndEvent) => {
@@ -157,7 +158,7 @@ const BudgetApp: React.FC = () => {
                 {activeDragItem.template?.amount}
               </div>
             </div>
-          ) : activeDragItem.item ? (
+          ) : activeDragItem.item && activeDragItem.itemType ? (
             <CalendarItem
               item={activeDragItem.item}
               type={activeDragItem.itemType}

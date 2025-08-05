@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { ScheduledExpense, ScheduledIncome } from "../../types/budget";
+import type { ScheduledExpense, ScheduledIncome, UpdateExpenseData, UpdateIncomeData } from "../../types/budget";
 import { formatCurrency } from "../../utils/formatters";
 import Modal from "../ui/Modal";
 import Button from "../ui/Button";
@@ -8,7 +8,7 @@ import Button from "../ui/Button";
 interface CalendarItemProps {
   item: ScheduledExpense | ScheduledIncome;
   type: "expense" | "income";
-  onUpdate?: (id: number, data: any) => void;
+  onUpdate?: (id: number, data: UpdateExpenseData | UpdateIncomeData) => void;
   onDelete?: (id: number) => void;
 }
 

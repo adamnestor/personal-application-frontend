@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { templateService } from "../services/templateService";
-import { ExpenseTemplate, CreateTemplateRequest } from "../types/budget";
+import type { CreateTemplateRequest, UpdateTemplateData } from "../types/budget";
 
 export const useTemplates = () => {
   const queryClient = useQueryClient();
@@ -23,7 +23,7 @@ export const useTemplates = () => {
 
   // Update template mutation
   const updateTemplateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: any }) =>
+    mutationFn: ({ id, data }: { id: number; data: UpdateTemplateData }) =>
       templateService.updateTemplate(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["templates"] });
@@ -64,7 +64,7 @@ export const useTemplates = () => {
     return createTemplateMutation.mutateAsync(data);
   };
 
-  const updateTemplate = async (id: number, data: any) => {
+  const updateTemplate = async (id: number, data: UpdateTemplateData) => {
     return updateTemplateMutation.mutateAsync({ id, data });
   };
 

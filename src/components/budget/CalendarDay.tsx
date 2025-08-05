@@ -1,15 +1,15 @@
 import React from "react";
 import { useDroppable } from "@dnd-kit/core";
-import { DayData } from "../../types/budget";
+import type { DayData, UpdateExpenseData, UpdateIncomeData } from "../../types/budget";
 import { formatBalanceWithColor } from "../../utils/formatters";
 import { isToday, isPast } from "../../utils/dateUtils";
 import CalendarItem from "./CalendarItem";
 
 interface CalendarDayProps {
   day: DayData;
-  onUpdateExpense?: (id: number, data: any) => void;
+  onUpdateExpense?: (id: number, data: UpdateExpenseData) => void;
   onDeleteExpense?: (id: number) => void;
-  onUpdateIncome?: (id: number, data: any) => void;
+  onUpdateIncome?: (id: number, data: UpdateIncomeData) => void;
   onDeleteIncome?: (id: number) => void;
 }
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { ExpenseTemplate } from "../../types/budget";
+import type { ExpenseTemplate, UpdateTemplateData } from "../../types/budget";
 import TemplateItem from "./TemplateItem";
 
 interface TemplateListProps {
   templates: ExpenseTemplate[];
   templateInstances?: Record<number, boolean>; // templateId -> hasInstances
-  onUpdate: (templateId: number, data: any) => void;
+  onUpdate: (templateId: number, data: UpdateTemplateData) => void;
   onDelete: (templateId: number) => void;
 }
 

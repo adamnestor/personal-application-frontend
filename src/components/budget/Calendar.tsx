@@ -1,7 +1,7 @@
 import React from "react";
-import { DndContext, DragEndEvent, DragOverlay } from "@dnd-kit/core";
-import { createPortal } from "react-dom";
-import { MonthlyBudgetData, DragData, DropData } from "../../types/budget";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
+import type { MonthlyBudgetData, UpdateExpenseData, UpdateIncomeData, DragData } from "../../types/budget";
 import { createMonthGrid } from "../../utils/dateUtils";
 import { CALENDAR_CONFIG } from "../../utils/constants";
 import MonthNavigation from "./MonthNavigation";
@@ -15,11 +15,11 @@ interface CalendarProps {
   isLoading?: boolean;
   onMonthChange: (year: number, month: number) => void;
   onDragEnd: (event: DragEndEvent) => void;
-  onUpdateExpense?: (id: number, data: any) => void;
+  onUpdateExpense?: (id: number, data: UpdateExpenseData) => void;
   onDeleteExpense?: (id: number) => void;
-  onUpdateIncome?: (id: number, data: any) => void;
+  onUpdateIncome?: (id: number, data: UpdateIncomeData) => void;
   onDeleteIncome?: (id: number) => void;
-  activeDragItem?: any; // The item being dragged
+  activeDragItem?: DragData | null;
 }
 
 const Calendar: React.FC<CalendarProps> = ({
@@ -138,7 +138,7 @@ const Calendar: React.FC<CalendarProps> = ({
                 {activeDragItem.template?.amount}
               </div>
             </div>
-          ) : activeDragItem.item ? (
+          ) : activeDragItem.item && activeDragItem.itemType ? (
             <CalendarItem
               item={activeDragItem.item}
               type={activeDragItem.itemType}

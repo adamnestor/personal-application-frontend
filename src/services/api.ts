@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { API_BASE_URL, STORAGE_KEYS } from "../utils/constants";
 
 // Create axios instance
@@ -51,27 +51,27 @@ export const apiClient = {
     return response.data;
   },
 
-  post: async <T>(
+  post: async <T, D = unknown>(
     url: string,
-    data?: any,
+    data?: D,
     config?: AxiosRequestConfig
   ): Promise<T> => {
     const response = await api.post<T>(url, data, config);
     return response.data;
   },
 
-  put: async <T>(
+  put: async <T, D = unknown>(
     url: string,
-    data?: any,
+    data?: D,
     config?: AxiosRequestConfig
   ): Promise<T> => {
     const response = await api.put<T>(url, data, config);
     return response.data;
   },
 
-  patch: async <T>(
+  patch: async <T, D = unknown>(
     url: string,
-    data?: any,
+    data?: D,
     config?: AxiosRequestConfig
   ): Promise<T> => {
     const response = await api.patch<T>(url, data, config);

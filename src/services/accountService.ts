@@ -1,5 +1,5 @@
 import { apiClient } from "./api";
-import { Account } from "../types/budget";
+import type { Account } from "../types/budget";
 
 export const accountService = {
   /**

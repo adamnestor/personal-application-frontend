@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ExpenseTemplate } from "../../types/budget";
+import type { ExpenseTemplate, CreateTemplateRequest, UpdateTemplateData } from "../../types/budget";
 import TemplateList from "../budget/TemplateList";
 import Button from "../ui/Button";
 import Modal from "../ui/Modal";
@@ -7,27 +7,31 @@ import Modal from "../ui/Modal";
 interface SidebarProps {
   templates: ExpenseTemplate[];
   isLoading?: boolean;
-  onCreateTemplate: (templateData: any) => void;
-  onUpdateTemplate: (templateId: number, templateData: any) => void;
+  onCreateTemplate: (templateData: CreateTemplateRequest) => void;
+  onUpdateTemplate: (templateId: number, templateData: UpdateTemplateData) => void;
   onDeleteTemplate: (templateId: number) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   templates,
   isLoading = false,
-  onCreateTemplate,
+  onCreateTemplate: _onCreateTemplate,
   onUpdateTemplate,
   onDeleteTemplate,
 }) => {
   const [showCreateExpenseModal, setShowCreateExpenseModal] = useState(false);
   const [showCreateIncomeModal, setShowCreateIncomeModal] = useState(false);
 
-  const expenseTemplates = templates.filter(
-    (t) => t.recurrenceType !== "INCOME"
-  );
-  const incomeTemplates = templates.filter(
-    (t) => t.recurrenceType === "INCOME"
-  );
+  // For now, determine income templates based on naming convention
+  // In the future, you might want to add an 'isIncome' field to the ExpenseTemplate interface
+  const expenseTemplates = templates.filter((t) => {
+    const name = t.name.toLowerCase();
+    return !name.includes('salary') && !name.includes('income') && !name.includes('freelance');
+  });
+  const incomeTemplates = templates.filter((t) => {
+    const name = t.name.toLowerCase();
+    return name.includes('salary') || name.includes('income') || name.includes('freelance');
+  });
 
   return (
     <aside className="w-80 bg-white border-r border-gray-200 overflow-y-auto">

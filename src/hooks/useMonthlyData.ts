@@ -1,9 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { budgetService } from "../services/budgetService";
-import {
-  MonthlyBudgetData,
+import type {
   CreateFromTemplateRequest,
   MoveTransactionRequest,
+  UpdateExpenseData,
+  UpdateIncomeData,
 } from "../types/budget";
 
 export const useMonthlyData = (year: number, month: number) => {
@@ -46,7 +47,7 @@ export const useMonthlyData = (year: number, month: number) => {
 
   // Update expense mutation
   const updateExpenseMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: any }) =>
+    mutationFn: ({ id, data }: { id: number; data: UpdateExpenseData }) =>
       budgetService.updateExpense(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["monthlyBudget"] });
@@ -63,7 +64,7 @@ export const useMonthlyData = (year: number, month: number) => {
 
   // Update income mutation
   const updateIncomeMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: any }) =>
+    mutationFn: ({ id, data }: { id: number; data: UpdateIncomeData }) =>
       budgetService.updateIncome(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["monthlyBudget"] });
@@ -91,7 +92,7 @@ export const useMonthlyData = (year: number, month: number) => {
     return moveIncomeMutation.mutateAsync({ id, data: { newDate } });
   };
 
-  const updateExpense = async (id: number, data: any) => {
+  const updateExpense = async (id: number, data: UpdateExpenseData) => {
     return updateExpenseMutation.mutateAsync({ id, data });
   };
 
@@ -99,7 +100,7 @@ export const useMonthlyData = (year: number, month: number) => {
     return deleteExpenseMutation.mutateAsync(id);
   };
 
-  const updateIncome = async (id: number, data: any) => {
+  const updateIncome = async (id: number, data: UpdateIncomeData) => {
     return updateIncomeMutation.mutateAsync({ id, data });
   };
 
