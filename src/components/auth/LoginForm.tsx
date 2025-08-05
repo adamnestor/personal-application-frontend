@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { LoginRequest } from "../../types/auth";
+import type { LoginRequest } from "../../types/auth";
 import RegisterForm from "./RegisterForm";
 import Button from "../ui/Button";
 import Input from "../ui/Input";

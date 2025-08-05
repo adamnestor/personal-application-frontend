@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { RegisterRequest } from "../../types/auth";
+import type { RegisterRequest } from "../../types/auth";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { VALIDATION } from "../../utils/constants";
@@ -54,7 +54,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
     }
 
     try {
-      const { confirmPassword, ...registerData } = formData;
+      const { confirmPassword: _, ...registerData } = formData;
       await register(registerData);
       setSuccess(true);
     } catch (error) {
