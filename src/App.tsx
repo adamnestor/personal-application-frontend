@@ -11,7 +11,8 @@ import LoginForm from "./components/auth/LoginForm";
 import CalendarItem from "./components/budget/CalendarItem";
 
 // Context
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./hooks/useAuthContext";
 
 // Hooks
 import { useTemplates } from "./hooks/useTemplates";

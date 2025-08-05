@@ -42,34 +42,26 @@ export const useAuth = () => {
   }, []);
 
   const login = async (credentials: LoginRequest): Promise<void> => {
-    try {
-      const response = await authService.login(credentials);
+    const response = await authService.login(credentials);
 
-      const userData: User = {
-        id: 1, // This would come from the JWT or a separate user endpoint
-        username: response.username,
-        email: "", // This would also come from user data
-      };
+    const userData: User = {
+      id: 1, // This would come from the JWT or a separate user endpoint
+      username: response.username,
+      email: "", // This would also come from user data
+    };
 
-      // Store auth data
-      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.token);
-      localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
+    // Store auth data
+    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.token);
+    localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
 
-      setToken(response.token);
-      setUser(userData);
-    } catch (error) {
-      throw error;
-    }
+    setToken(response.token);
+    setUser(userData);
   };
 
   const register = async (data: RegisterRequest): Promise<void> => {
-    try {
-      await authService.register(data);
-      // Registration successful, but user needs to login
-      // Could auto-login here if desired
-    } catch (error) {
-      throw error;
-    }
+    await authService.register(data);
+    // Registration successful, but user needs to login
+    // Could auto-login here if desired
   };
 
   const logout = (): void => {

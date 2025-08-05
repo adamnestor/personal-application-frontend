@@ -54,7 +54,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onBack }) => {
     }
 
     try {
-      const { confirmPassword: _, ...registerData } = formData;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { confirmPassword, ...registerData } = formData;
       await register(registerData);
       setSuccess(true);
     } catch (error) {

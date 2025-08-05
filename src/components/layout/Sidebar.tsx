@@ -7,7 +7,7 @@ import Modal from "../ui/Modal";
 interface SidebarProps {
   templates: ExpenseTemplate[];
   isLoading?: boolean;
-  onCreateTemplate: (templateData: CreateTemplateRequest) => void;
+  onCreateTemplate?: (templateData: CreateTemplateRequest) => void;
   onUpdateTemplate: (templateId: number, templateData: UpdateTemplateData) => void;
   onDeleteTemplate: (templateId: number) => void;
 }
@@ -15,7 +15,6 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({
   templates,
   isLoading = false,
-  onCreateTemplate: _onCreateTemplate,
   onUpdateTemplate,
   onDeleteTemplate,
 }) => {

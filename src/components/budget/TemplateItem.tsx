@@ -15,7 +15,6 @@ interface TemplateItemProps {
 const TemplateItem: React.FC<TemplateItemProps> = ({
   template,
   hasInstances = false,
-  onUpdate: _onUpdate,
   onDelete,
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);
