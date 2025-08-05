@@ -1,6 +1,6 @@
 // Main type exports
-export * from './auth';
-export * from './budget';
+export * from "./auth";
+export * from "./budget";
 
 // Common utility types
 export interface ApiResponse<T> {
@@ -15,10 +15,12 @@ export interface ApiError {
 
 // Drag and drop types
 export interface DragData {
-  type: 'template' | 'scheduled';
-  template?: ExpenseTemplate;
-  item?: ScheduledExpense | ScheduledIncome;
-  itemType?: 'expense' | 'income';
+  type: "template" | "scheduled";
+  template?: import("./budget").ExpenseTemplate;
+  item?:
+    | import("./budget").ScheduledExpense
+    | import("./budget").ScheduledIncome;
+  itemType?: "expense" | "income";
 }
 
 export interface DropData {

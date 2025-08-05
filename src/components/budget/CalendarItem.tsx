@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useDraggable } from '@dnd-kit/core';
-import { ScheduledExpense, ScheduledIncome } from '../../types/budget';
-import { formatCurrency } from '../../utils/formatters';
-import Modal from '../ui/Modal';
-import Button from '../ui/Button';
+import React, { useState } from "react";
+import { useDraggable } from "@dnd-kit/core";
+import { ScheduledExpense, ScheduledIncome } from "../../types/budget";
+import { formatCurrency } from "../../utils/formatters";
+import Modal from "../ui/Modal";
+import Button from "../ui/Button";
 
 interface CalendarItemProps {
   item: ScheduledExpense | ScheduledIncome;
-  type: 'expense' | 'income';
+  type: "expense" | "income";
   onUpdate?: (id: number, data: any) => void;
   onDelete?: (id: number) => void;
 }
@@ -19,19 +19,28 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
   onDelete,
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);
-
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `${type}-${item.id}`,
-    data: { type: 'scheduled', item, itemType: type }
+  const [editData, setEditData] = useState({
+    name: item.name,
+    amount: item.amount,
+    scheduledDate: item.scheduledDate,
   });
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: `${type}-${item.id}`,
+      data: { type: "scheduled", item, itemType: type },
+    });
 
-  const bgColorClass = type === 'expense' 
-    ? 'bg-red-100 border-red-200 text-red-800 hover:bg-red-150' 
-    : 'bg-green-100 border-green-200 text-green-800 hover:bg-green-150';
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined;
+
+  const bgColorClass =
+    type === "expense"
+      ? "bg-red-100 border-red-200 text-red-800 hover:bg-red-150"
+      : "bg-green-100 border-green-200 text-green-800 hover:bg-green-150";
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -39,12 +48,7 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
   };
 
   const handleUpdate = () => {
-    // This would contain form logic
-    onUpdate?.(item.id, {
-      name: item.name,
-      amount: item.amount,
-      scheduledDate: item.scheduledDate,
-    });
+    onUpdate?.(item.id, editData);
     setShowEditModal(false);
   };
 
@@ -52,6 +56,16 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
     onDelete?.(item.id);
     setShowEditModal(false);
   };
+
+  const handleInputChange =
+    (field: keyof typeof editData) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEditData((prev) => ({
+        ...prev,
+        [field]:
+          field === "amount" ? parseFloat(e.target.value) || 0 : e.target.value,
+      }));
+    };
 
   return (
     <>
@@ -64,7 +78,11 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
         className={`
           px-2 py-1 rounded text-xs font-medium cursor-grab active:cursor-grabbing
           transition-all duration-200 border group
-          ${isDragging ? 'opacity-50 scale-105 rotate-1' : 'hover:shadow-sm hover:-translate-y-0.5'}
+          ${
+            isDragging
+              ? "opacity-50 scale-105 rotate-1"
+              : "hover:shadow-sm hover:-translate-y-0.5"
+          }
           ${bgColorClass}
         `}
       >
@@ -77,17 +95,43 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
       <Modal
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
-        title={`Edit ${type === 'expense' ? 'Expense' : 'Income'}`}
+        title={`Edit ${type === "expense" ? "Expense" : "Income"}`}
         size="md"
       >
         <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              value={editData.name}
+              onChange={handleInputChange("name")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Amount
+            </label>
+            <input
+              type="number"
+              value={editData.amount}
+              onChange={handleInputChange("amount")}
+              step="0.01"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Date
             </label>
             <input
               type="date"
-              defaultValue={item.scheduledDate}
+              value={editData.scheduledDate}
+              onChange={handleInputChange("scheduledDate")}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -100,18 +144,10 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
             >
               Cancel
             </Button>
-            <Button
-              variant="danger"
-              onClick={handleDelete}
-              size="sm"
-            >
+            <Button variant="danger" onClick={handleDelete} size="sm">
               Delete
             </Button>
-            <Button
-              variant="primary"
-              onClick={handleUpdate}
-              className="flex-1"
-            >
+            <Button variant="primary" onClick={handleUpdate} className="flex-1">
               Save Changes
             </Button>
           </div>
@@ -121,27 +157,4 @@ const CalendarItem: React.FC<CalendarItemProps> = ({
   );
 };
 
-export default CalendarItem;mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              defaultValue={item.name}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Amount
-            </label>
-            <input
-              type="number"
-              defaultValue={item.amount}
-              step="0.01"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700
+export default CalendarItem;
